@@ -210,14 +210,14 @@ export async function getImportResultState({ github, context, workflowInputs }) 
   return resultState;
 }
 
-export function createBranchAndCommit({ branch_name, firefox_version_display, current_date }) {
+export function createBranchAndCommit({ branch_name, firefox_version, current_date }) {
   shell.echo(`Create new commit in branch ${branch_name}`);
   shell.exec('git config user.email "$GITHUB_ACTOR@users.noreply.github.com"');
   shell.exec('git config user.name "$GITHUB_ACTOR"');
   shell.exec('git add src/schema/imported');
   shell.exec(`git checkout -b ${branch_name}`);
   shell.exec(
-    `git commit -m "feat: Imported Firefox API Schema from Firefox ${firefox_version_display} ($GITHUB_JOB ${current_date})"`
+    `git commit -m "feat: Imported Firefox API Schema from Firefox ${firefox_version} ($GITHUB_JOB ${current_date})"`
   );
   const commitDiff = shell.exec('git log -p -r HEAD^..HEAD');
   return commitDiff.stdout.trim();
