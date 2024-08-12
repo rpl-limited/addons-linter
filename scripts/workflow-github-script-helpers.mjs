@@ -146,6 +146,7 @@ async function hasRemoteBranchChanges({ github, context, branch_name, firefox_ve
   const hasAutomatedCommitMessage = githubRemoteBranchResult.data.commit.commit.message.startsWith(
     `feat: Imported Firefox API Schema from Firefox ${firefox_version} (import-firefox-schema `
   );
+  console.log('CANARY remote commit message', githubRemoteBranchResult.data.commit.commit.message);
   
   return !hasAutomatedCommitMessage;
 }
